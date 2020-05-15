@@ -23,4 +23,7 @@ public class Karta {
 		wartosc = w;
 		kolor = k;
 	}
+	
+	public int getWartosc() { return wartosc; }
+	public int getKolor() { return kolor; }
 }
