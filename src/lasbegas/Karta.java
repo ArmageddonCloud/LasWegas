@@ -26,4 +26,42 @@ public class Karta {
 	
 	public int getWartosc() { return wartosc; }
 	public int getKolor() { return kolor; }
+	
+	public String toString() {
+		String wynik = "";
+		switch(kolor) {
+			case 1:
+				wynik += "♥";
+				break;
+			case 2:
+				wynik += "♠";
+				break;
+			case 3:
+				wynik += "♦";
+				break;
+			case 4:
+				wynik += "♣";
+				break;
+		}
+		
+		switch(wartosc) {
+			case 11:
+				wynik += "J";
+				break;
+			case 12:
+				wynik += "Q";
+				break;
+			case 13:
+				wynik += "K";
+				break;
+			case 14:
+				wynik += "A";
+				break;
+			default:
+				wynik += wartosc;
+		}
+		
+		return wynik;
+	}
+	
 }
