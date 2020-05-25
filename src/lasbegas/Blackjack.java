@@ -14,7 +14,7 @@ public class Blackjack extends JFrame implements ActionListener{
 	private Talia deck;
 	private Talia dealer;
 	private Talia player;
-	private boolean fin;
+	private boolean fin;//test
 	
 	private static JLabel pl, dl, pc, dc, ps, ds, mainL;
 	private static JButton startButton, acceptButton;
