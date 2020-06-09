@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 
 public class Menu_Wyscig_Koni extends JFrame{
 	
-		public void wyscig(int[] los, Kon[] kon, JFrame f){
+		public void wyscig(int[] los, Kon[] kon){
 			for(int i=0; i<4; i++)
 			{
 					los[i] = (int) (Math.random() * 4) +1;
@@ -73,7 +73,7 @@ public class Menu_Wyscig_Koni extends JFrame{
 //				//swap(kon, i, los[i]);
 //			    System.out.print(kon[i].imie + " " + kon[i].miejsce + "\n");
 //			} 
-			wygrana(kon, f);
+			wygrana(kon);
 		}
 		
 		public void gra_dalej(JFrame f_temp)
@@ -82,15 +82,15 @@ public class Menu_Wyscig_Koni extends JFrame{
 			JLabel txt_gra_dalej = new JLabel("Czy chcesz grac dalej?");
 		
 			JButton b_graj=new JButton("Gram dalej!");
-			JButton b_koniec=new JButton("Powrot do menu");
+			//JButton b_koniec=new JButton("Powrot do menu");
 		
 			txt_gra_dalej.setBounds(230, 25, 250, 20);
 			b_graj.setBounds(75, 50, 200, 50);
-			b_koniec.setBounds(300, 50, 200, 50);
+			//b_koniec.setBounds(300, 50, 200, 50);
 			
 			f.add(txt_gra_dalej);
 			f.add(b_graj);
-			f.add(b_koniec);
+			//f.add(b_koniec);
 			
 			
 			
@@ -103,12 +103,12 @@ public class Menu_Wyscig_Koni extends JFrame{
 			{
 				public void actionPerformed(ActionEvent ae) 
 				{
-						new Menu_Wyscig_Koni();
-						f_temp.setVisible(false);
-						f.setVisible(false);
+						setVisible(true);
+						f_temp.dispose();
+						f.dispose();
 				}
 			});
-			
+			/*
 			b_koniec.addActionListener(new ActionListener() 
 			{
 				public void actionPerformed(ActionEvent ae) 
@@ -117,13 +117,13 @@ public class Menu_Wyscig_Koni extends JFrame{
 						f_temp.setVisible(false);
 						f.setVisible(false);
 				}
-			});
+			});*/
 			
 		}
 		
-		public void wygrana(Kon[] k, JFrame f)
+		public void wygrana(Kon[] k)
 		{
-			f.setVisible(false);
+			setVisible(false);
 			
 			JFrame f2 = new JFrame("Wyniki");
 			JLabel txt_wygrana = new JLabel("Wygrales!");
@@ -186,6 +186,7 @@ public class Menu_Wyscig_Koni extends JFrame{
 		
 		Menu_Wyscig_Koni()
 		{
+			this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			String[] nazwa = new String [10];
 			nazwa[0] = "Stefan";
 			nazwa[1] = "Rafal";
@@ -228,7 +229,7 @@ public class Menu_Wyscig_Koni extends JFrame{
 					//kon[i].wypisz();
 				}
 				
-				JFrame f = new JFrame("Wyscigi_koni");  
+				this.setTitle("Wyœcig koni"); 
 				JButton b1=new JButton("1."+kon[0].imie);
 				JButton b2=new JButton("2."+kon[1].imie);
 				JButton b3=new JButton("3."+kon[2].imie);
@@ -243,17 +244,17 @@ public class Menu_Wyscig_Koni extends JFrame{
 				b3.setBounds(450,50,150, 40);
 				b4.setBounds(650,50,150, 40);
 				
-				f.add(txt1);
+				add(txt1);
 				
-				f.add(b1);
-				f.add(b2);
-				f.add(b3);
-				f.add(b4);//adding button on frame  
+				add(b1);
+				add(b2);
+				add(b3);
+				add(b4); 
 				
-				f.setSize(900,250);  
-				f.setLayout(null);  
-				f.setVisible(true);
-				f.setLocation(500,425);
+				setSize(900,250);  
+				setLayout(null);  
+				setVisible(true);
+				setLocation(500,425);
 				
 				b1.addActionListener(new ActionListener() 
 				{
@@ -261,7 +262,7 @@ public class Menu_Wyscig_Koni extends JFrame{
 					{
 							b1.setText("postawiono");
 							kon[0].postawiono =true;
-							wyscig(los, kon, f);
+							wyscig(los, kon);
 					}
 				});
 				
@@ -271,7 +272,7 @@ public class Menu_Wyscig_Koni extends JFrame{
 					{
 						b2.setText("postawiono");
 						kon[1].postawiono =true;
-						wyscig(los, kon, f);
+						wyscig(los, kon);
 					}
 				});
 				
@@ -281,7 +282,7 @@ public class Menu_Wyscig_Koni extends JFrame{
 					{
 						b3.setText("postawiono");
 						kon[2].postawiono =true;
-						wyscig(los, kon, f);
+						wyscig(los, kon);
 					}
 				});
 				
@@ -291,7 +292,7 @@ public class Menu_Wyscig_Koni extends JFrame{
 					{
 						b4.setText("postawiono");
 						kon[3].postawiono =true;
-						wyscig(los, kon,f );
+						wyscig(los, kon);
 					}
 				});
 				
