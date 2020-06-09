@@ -31,7 +31,7 @@ public class Menu_Wyscig_Koni extends JFrame{
 					}
 					//System.out.print(nazwa[los[i]] + "     ");
 					kon[i].setMiejsce(los[i]);
-					kon[i].wypisz();
+					//kon[i].wypisz();
 			}
 			
 			Kon temp = new Kon();
@@ -68,11 +68,11 @@ public class Menu_Wyscig_Koni extends JFrame{
 				}
 			} 
 			
-			for(int i=0; i<4; i++)
-			{
-				//swap(kon, i, los[i]);
-			    System.out.print(kon[i].imie + " " + kon[i].miejsce + "\n");
-			} 
+//			for(int i=0; i<4; i++)
+//			{
+//				//swap(kon, i, los[i]);
+//			    System.out.print(kon[i].imie + " " + kon[i].miejsce + "\n");
+//			} 
 			wygrana(kon, f);
 		}
 		
@@ -103,7 +103,7 @@ public class Menu_Wyscig_Koni extends JFrame{
 			{
 				public void actionPerformed(ActionEvent ae) 
 				{
-						new Menu();
+						new Menu_Wyscig_Koni();
 						f_temp.setVisible(false);
 						f.setVisible(false);
 				}
@@ -113,9 +113,9 @@ public class Menu_Wyscig_Koni extends JFrame{
 			{
 				public void actionPerformed(ActionEvent ae) 
 				{
-//						new Menu();
-//						f_temp.setVisible(false);
-					System.out.print("\n\nOK, nie graj kurwa!");
+						//new Menu();
+						f_temp.setVisible(false);
+						f.setVisible(false);
 				}
 			});
 			
@@ -157,12 +157,12 @@ public class Menu_Wyscig_Koni extends JFrame{
 			if(k[0].postawiono == true)
 			{
 				txt_wygrana.setVisible(true);
-				System.out.print("wygrales no!");
+				//System.out.print("wygrales no!");
 			}
 			else 
 			{	
 				txt_przegrana.setVisible(true);
-				System.out.print("przegrales no!");
+				//System.out.print("przegrales no!");
 			}
 			
 			txt_postawiles.setBounds(50, 50, 200, 20);
@@ -224,8 +224,8 @@ public class Menu_Wyscig_Koni extends JFrame{
 					}
 					//System.out.print(nazwa[los[i]] + "     ");
 					kon[i].setImie(nazwa[los[i]]);
-					System.out.print(i+1 + ".");
-					kon[i].wypisz();
+					//System.out.print(i+1 + ".");
+					//kon[i].wypisz();
 				}
 				
 				JFrame f = new JFrame("Wyscigi_koni");  
