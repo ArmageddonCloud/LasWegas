@@ -3,30 +3,39 @@ package lasbegas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class Blackjack extends JFrame implements ActionListener{
+	private Portfel money;
+	
 	private Talia deck;
 	private Talia dealer;
 	private Talia player;
-	private boolean fin;//test
+	private boolean fin;
+	private int bet;
 	
-	private static JLabel pl, dl, pc, dc, ps, ds, mainL;
+	private static JLabel pl, dl, pc, dc, ps, ds, mainL, moneyL;
 	private static JButton startButton, acceptButton;
 	private static JRadioButton hitRadio, standRadio;
+	private static JSpinner betSpinner;
+	private static SpinnerNumberModel betModel;
 	
-	public Blackjack() {
+	public Blackjack(Portfel balance) {
 		deck = new Talia(1);
 		player = new Talia(0);
 		dealer = new Talia(0);
 		fin = false;
+		money = balance;
+		bet = 0;
 	
 		this.setTitle("Blackjack");
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		dl = new JLabel("Karty Dealera");
 		dl.setBounds(10,10,100,30);  
@@ -42,6 +51,9 @@ public class Blackjack extends JFrame implements ActionListener{
 		ds.setBounds(250,10,100,30);
 		mainL = new JLabel();
 		mainL.setBounds(10,250,400,30);
+		moneyL = new JLabel();
+		moneyL.setBounds(10, 350, 100, 30);
+		moneyL.setText("Cash: " + money.toString());
 		
 		startButton = new JButton("Start");
 		startButton.addActionListener(this);
@@ -61,17 +73,25 @@ public class Blackjack extends JFrame implements ActionListener{
 		options.add(hitRadio);
 		options.add(standRadio);
 		
+		betModel = new SpinnerNumberModel(0,0,money.getBalance(), 1);
+		betSpinner = new JSpinner(betModel);
+		betSpinner.setBounds(150, 350, 100, 30);
+		
 		
          
 		add(dl);
 		add(pl);
 		add(pc);
 		add(dc);
+		add(ds);
+		add(ps);
 		add(mainL);
+		add(moneyL);
 		add(startButton);
 		add(acceptButton);
 		add(hitRadio);
 		add(standRadio);
+		add(betSpinner);
 		setSize(400,500);  
 		setLayout(null);  
 		setVisible(true); 
@@ -97,9 +117,13 @@ public class Blackjack extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == startButton) {			
 				startButton.setEnabled(false);
+				betSpinner.setEnabled(false);
+				bet = (int)betSpinner.getValue();
 				mainL.setText("");
 				pc.setText("");
 				dc.setText("");
+				ps.setText("");
+				ds.setText("");
 				startGame();
 			}
 
@@ -134,15 +158,18 @@ public class Blackjack extends JFrame implements ActionListener{
 			return;
 		}else if (psum == 21 && dsum != 21) {
 			mainL.setText("Gracz ma blackjacka.");
+			money.changeCash(bet);
 			return;
 		}else if (psum != 21 && dsum == 21){
 			mainL.setText("Dealer ma blackjacka.");
 			dc.setText(dealer.displayDeck());
+			money.changeCash(-bet);
 			return;
 		}
 		
 		if(psum > 21) {
 			mainL.setText("Gracz przebil.");
+			money.changeCash(-bet);
 			return;
 		}
 		
@@ -154,14 +181,17 @@ public class Blackjack extends JFrame implements ActionListener{
 		
 		if(dsum > 21) {
 			mainL.setText("Dealer przebil - Gracz wygrywa");
+			money.changeCash(bet);
 			return;
 		}
 		
 		if(psum > dsum) {
 			mainL.setText("Gracz wygrywa.");
+			money.changeCash(bet);
 			return;
 		}else if (psum < dsum) {
 			mainL.setText("Dealer wygrywa.");
+			money.changeCash(-bet);
 			return;
 		}else {
 			mainL.setText("Push");
@@ -178,18 +208,23 @@ public class Blackjack extends JFrame implements ActionListener{
 		while(dealer.deckSize() != 0)
 			deck.putCard(dealer.pullRandomCard());
 		
+		bet = 0;
+		moneyL.setText("Cash: " + money.toString());
+		betModel.setMaximum(money.getBalance());
+		betModel.setValue(0);
+		betSpinner.setEnabled(true);
 		deck.shuffle();
 	}
 	
 	public void startGame() {
 		deal();
-		if(player.sumUp() >= 21 || dealer.sumUp() == 21 || fin == true)
+		if(player.sumUp() >= 21 || dealer.sumUp() == 21 || fin == true) {
 			decideWinner();
+			cleanup();
+		}
 		else {
 			round();
-		}
-			
-		
+		}				
 	}
 	
 	public void round() {
@@ -204,20 +239,4 @@ public class Blackjack extends JFrame implements ActionListener{
 		acceptButton.setEnabled(true);
 	}
 	
-/*	public void round(){
-		deal();
-		boolean bj = false;
-		if(dealer.sumUp() == 21 || player.sumUp() == 21) {
-			fin = true;
-			bj = true;
-		}
-
-		while(fin == false || player.sumUp() <= 21) {
-			
-			hitRadio.setEnabled(true);
-			standRadio.setEnabled(true);
-			acceptButton.setEnabled(true);
-		}
-		decideWinner(bj);
-	}*/
 }
