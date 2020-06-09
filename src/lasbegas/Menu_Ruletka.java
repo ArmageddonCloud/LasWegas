@@ -29,8 +29,8 @@ public class Menu_Ruletka extends JFrame{
 		}
 	}
 	
-	public void losowanie(Oczko[] o, JFrame f1) {
-		f1.setVisible(false);
+	public void losowanie(Oczko[] o) {
+		setVisible(false);//
 		int los =  (int) (Math.random() * 36);
 		System.out.print("los: " + los);
 		boolean tmp = false;
@@ -44,7 +44,7 @@ public class Menu_Ruletka extends JFrame{
 		}
 	}
 	
-	public void liczby_b_akcja(Oczko[] o, int i, JButton[] b, JFrame f)
+	public void liczby_b_akcja(Oczko[] o, int i, JButton[] b)
 	{
 		b[i].addActionListener(new ActionListener() 
 		{
@@ -52,7 +52,7 @@ public class Menu_Ruletka extends JFrame{
 			{
 				o[i].postawiono=true;
 				o[i].wypisz();
-				losowanie(o,f);
+				losowanie(o);
 			}
 			
 		});
@@ -60,12 +60,12 @@ public class Menu_Ruletka extends JFrame{
 	
 	public void wypisz_buttony(Oczko[] o)
 	{
-		JFrame f = new JFrame("Ruletka");
+		//JFrame f = new JFrame("Ruletka");
 		
-		f.setSize(500,500);
-		f.setLocation(500,150);
-		f.setVisible(true);
-		f.setLayout(null);
+		setSize(500,500);//
+		setLocation(500,150);//
+		setVisible(true);//
+		setLayout(null);//
 		
 		//deklaracja buttonow
 		JButton[] b = new JButton[37];
@@ -104,15 +104,15 @@ public class Menu_Ruletka extends JFrame{
 		red.setVisible(true);
 		black.setVisible(true);
 		
-		f.add(jed_dwana);
-		f.add(trzynas_dwaycztery);
-		f.add(dwaypiec_trzyszesc);
-		f.add(jed_osiemn);
-		f.add(dziewietn_trzycztery);
-		f.add(parzyste);
-		f.add(nie_parzyste);
-		f.add(red);
-		f.add(black);
+		add(jed_dwana);//
+		add(trzynas_dwaycztery);//
+		add(dwaypiec_trzyszesc);//
+		add(jed_osiemn);//
+		add(dziewietn_trzycztery);//
+		add(parzyste);//
+		add(nie_parzyste);//
+		add(red);//
+		add(black);//
 		
 		String tmp;
 		
@@ -141,8 +141,8 @@ public class Menu_Ruletka extends JFrame{
 			else if(o[i].kolor == "czerwony")	b[i].setBackground(Color.RED);
 			else if(o[i].kolor == "czarny")	b[i].setBackground(Color.BLACK);
 			
-			f.add(b[i]);
-			liczby_b_akcja(o, i, b, f);
+			add(b[i]);//
+			liczby_b_akcja(o, i, b);
 			
 			o[i].wypisz();
 		}
@@ -156,7 +156,7 @@ public class Menu_Ruletka extends JFrame{
 					o[i].postawiono=true;
 					o[i].wypisz();
 				}
-				losowanie(o,f);
+				losowanie(o);
 			}
 		});
 		
@@ -169,7 +169,7 @@ public class Menu_Ruletka extends JFrame{
 					o[i].postawiono=true;
 					o[i].wypisz();
 				}
-				losowanie(o,f);
+				losowanie(o);
 			}
 		});
 		
@@ -183,7 +183,7 @@ public class Menu_Ruletka extends JFrame{
 					o[i].postawiono=true;
 					o[i].wypisz();
 				}
-				losowanie(o,f);
+				losowanie(o);
 			}
 		});
 		
@@ -193,7 +193,7 @@ public class Menu_Ruletka extends JFrame{
 					o[i].postawiono=true;
 					o[i].wypisz();
 				}
-				losowanie(o,f);
+				losowanie(o);
 			}
 		});
 		
@@ -203,7 +203,7 @@ public class Menu_Ruletka extends JFrame{
 					o[i].postawiono=true;
 					o[i].wypisz();
 				}
-				losowanie(o,f);
+				losowanie(o);
 			}
 		});
 		
@@ -215,7 +215,7 @@ public class Menu_Ruletka extends JFrame{
 						o[i].wypisz();
 					}
 				}
-				losowanie(o,f);
+				losowanie(o);
 			}
 		});
 		
@@ -228,7 +228,7 @@ public class Menu_Ruletka extends JFrame{
 					}
 					
 				}
-				losowanie(o,f);
+				losowanie(o);
 			}
 		});
 		
@@ -241,7 +241,7 @@ public class Menu_Ruletka extends JFrame{
 					}
 					
 				}
-				losowanie(o,f);
+				losowanie(o);
 			}
 		});
 		
@@ -253,7 +253,7 @@ public class Menu_Ruletka extends JFrame{
 						o[i].wypisz();
 					}
 				}
-				losowanie(o,f);
+				losowanie(o);
 			}
 		});
 	}
@@ -287,26 +287,27 @@ public class Menu_Ruletka extends JFrame{
 		f.add(label_los);
 		f.add(lbl_pytanie);
 		f.add(gram_dalej);
-		f.add(koniec);
+		//f.add(koniec);
 		
 		gram_dalej.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				f.setVisible(false);
-				new Menu_Ruletka();
+				setVisible(true);
+				f.dispose();
 			}
 		});
 		
-		koniec.addActionListener(new ActionListener() {
+		/*koniec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				f.setVisible(false);
 				//new Menu();
 			}
-		});
+		});*/
 	}
 	
 	
 	Menu_Ruletka()
 	{
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		Oczko[] oczka = new Oczko[37];
 		for(int i=0; i<37; i++)
 		{
